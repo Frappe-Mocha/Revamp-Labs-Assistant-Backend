@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UI Demo Modal with Highlight</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .demo-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      z-index: 9999;
+    }
+    .modal-content {
+      position: relative;
+      margin: 5% auto;
+      width: 90%;
+      height: 80%;
+      background: white;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    }
+    /* Renamed from zoom-wrapper to container */
+    .container {
+      position: relative;
+      overflow: auto;
+      width: 100%;
+      height: 100%;
+      background: white;
+    }
+    .ui-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .highlight-overlay {
+      position: absolute;
+      pointer-events: none;
+      border: 2px solid red;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      transition: all 0.3s;
+      transform: scale(1);
+      z-index: 1000;
+      display: none;
+    }
+    .controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      z-index: 1001;
+    }
+    .controls button {
+      margin: 5px;
+      padding: 10px 15px;
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .controls button:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+<script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+
+<!-- Modal Container -->
+<div id="demoModal" class="demo-modal">
+  <div class="modal-content">
+    <div class="container" id="container">
+      <iframe id="uiFrame" class="ui-frame"></iframe>
+    </div>
+
+    <div id="highlightOverlay" class="highlight-overlay"></div>
+
+    <div class="controls">
+      <button onclick="highlightSubmit()">Highlight Submit</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const DemoController = {
+  loadUI(htmlContent) {
+    const iframe = document.getElementById('uiFrame');
+    iframe.srcdoc = htmlContent;
+    iframe.onload = () => {
+      console.log('Iframe content loaded');
+    };
+  },
+
+  highlightElement(selector) {
+    const iframe = document.getElementById('uiFrame');
+    const element = iframe.contentDocument.querySelector(selector);
+
+    if (element) {
+      const overlay = document.getElementById('highlightOverlay');
+      // Get the iframe's bounding rectangle (position relative to viewport)
+      const iframeRect = iframe.getBoundingClientRect();
+      // Get the target element's bounding rectangle (position relative to viewport)
+      const elementRect = element.getBoundingClientRect();
+
+      // Calculate the position of the element relative to the iframe container
+      const offsetLeft = elementRect.left;
+      const offsetTop = elementRect.top;
+      
+      console.log('offsetLeft', offsetLeft);
+      console.log('offsetTop', offsetTop);
+
+      console.log('elementRect.left', elementRect.left);
+      console.log('elementRect.bottom', elementRect.bottom);
+
+      element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      overlay.style.width = `${elementRect.width }px`;
+      overlay.style.height = `${elementRect.height }px`;
+      overlay.style.top = `${offsetTop}px`
+      overlay.style.left = `${offsetLeft}px`
+    //   overlay.style.transform = `scale(2)`;
+      overlay.style.display = 'block';
+      
+      console.log('Highlighting element:', selector);
+      console.log('Element Rect:', elementRect);
+      console.log('Overlay Position:', overlay.style.transform);
+
+      // Scroll the element into view within the iframe if needed
+    } else {
+      console.warn(`Element ${selector} not found`);
+    }
+  }
+};
+
+console.log('connecting to socket')
+
+const socket = io('http://localhost:5000/test', {
+  reconnection: true, 
+  reconnectionAttempts: 5, 
+  reconnectionDelay: 2000
+});
+// Socket connection logs
+socket.on('connect', () => {
+  console.log('✅ Connected to socket server');
+});
+
+console.log('Socket object:', socket);
+console.log('Socket namespace:', socket.nsp); 
+
+socket.emit('ping');
+socket.on('pong', () => {
+  console.log('Received pong from server');
+});
+
+socket.on('connect_error', (error) => {
+  console.error('❌ Socket connection error:', error);
+});
+
+socket.on('disconnect', (reason) => {
+  console.warn('⚠️ Alarm Socket disconnected:', reason);
+});
+
+socket.on('highlight', (data) => {
+  console.log(`🔥 Received highlight event:`, data);
+
+  // Correctly access the ID from the object
+  const element_id = '#' + data.id;
+
+  console.log(`🔎 Highlighting element with ID: ${element_id}`);
+
+  if (element_id) {
+    DemoController.highlightElement(element_id);
+  } else {
+    console.warn(`⚠️ No element found for ID: ${data.id}`);
+  }
+});
+
+function highlightSubmit() {
+  DemoController.highlightElement('#idChatbot');
+}
+
+// Sample UI with a Submit Button and Login Form
+const sampleUI = `
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apli</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .nav {
+            background: #f8f9fa;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            height: 40px;
+        }
+        .nav-item {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #333;
+        }
+        .section {
+            padding: 20px;
+        }
+        .columns-half {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .column {
+            flex: 1;
+            padding: 10px;
+        }
+        .img-medium {
+            max-width: 100%;
+            height: auto;
+        }
+        .footer {
+            background: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="/" class="logo-icon">
+            <img src="https://cdn.prod.website-files.com/5d2e0204358ee966d91e1a32/5d3b29869c3afa3c0084781d_logo.svg" alt="Apli Logo" class="logo">
+        </a>
+        <div class="menu-nav">
+            <a href="/" class="nav-item">Home</a>
+            <a href="/en/solutions/sourcing" class="nav-item">Solutions</a>
+            <a href="/en/contact" class="nav-item">Contact Sales</a>
+        </div>
+    </nav>
+
+    <main class="main">
+        <section id="testIntro" class="section intro">
+            <div class="columns-half">
+                <div class="column">
+                    <h1>A complete AI-powered recruiting solution</h1>
+                    <p>From candidate sourcing and screening to interview coordination, Apli automates recruiting so you can hire <strong>better and faster</strong>.</p>
+                </div>
+                <div class="column">
+                    <img src="https://cdn.prod.website-files.com/5d2e0204358ee966d91e1a32/5d9bd6b162ffc2f1d147819f_home_hero%203.svg" alt="Recruiting Solution" class="img-medium">
+                </div>
+            </div>
+        </section>
+
+        <section id="idAbout" class="section">
+            <h2>About</h2>
+            <p>Instead of competing for the minority of applicants on job boards, Apli advertises your job to millions of potential candidates on social media. Our chatbots screen candidates at scale, applying customizable assessments and coordinating interviews - in a single streamlined conversation.</p>
+        </section>
+
+        <section id="idChatbot" class="section">
+            <h2>Candidate Chatbot</h2>
+            <div class="columns-half">
+                <div class="column">
+                    <img src="https://cdn.prod.website-files.com/5d2e0204358ee966d91e1a32/5d9cfefbe1dbab4c4a29ba86_screening%20-%20bots.svg" alt="Candidate Chatbot" class="img-medium">
+                </div>
+                <div class="column">
+                    <p>Candidates are screened by a bot that mimics a structured interview with an expert recruiter. Pre-screening, assessments, interview coordination, document gathering, and onboarding happen in one frictionless conversation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="idIntegrations" class="section">
+            <h2>Integrations</h2>
+            <p>Apli seamlessly integrates with the most popular ATS, HRIS, and collaboration software including <strong>Success Factors</strong>, <strong>Cornerstone</strong>, <strong>Workday</strong>, <strong>Slack</strong>, and <strong>G-Suite</strong>.</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Made by humans with ❤️</p>
+        <p>&copy; 2023 Apli. All rights reserved.</p>
+    </footer>
+</body>
+</html>
+
+`;
+
+
+// Show the modal and load the sample UI
+document.getElementById('demoModal').style.display = 'block';
+DemoController.loadUI(sampleUI);
+</script>
+
+</body>
+</html>
