@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, request, jsonify, render_template
 from flask_socketio import SocketIO, Namespace
 import time
 import threading
@@ -6,6 +6,7 @@ from flask_socketio import SocketIO
 import threading
 import webbrowser
 from flask_cors import CORS
+from rag_ui_flows import fetch_relevant_workflow
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -16,6 +17,14 @@ socketio = SocketIO(app, cors_allowed_origins="*", ping_interval=25000, ping_tim
 def index():
     """Serve the HTML UI."""
     return render_template('demo_modal_test.html')
+
+@app.route("/chat-workflows", methods=["POST"])
+def chat():
+    data = request.json
+    user_message = data.get("message", "")
+    print(f"Received message: {user_message}")
+    work_flow = fetch_relevant_workflow(user_message, 1)
+    return jsonify(work_flow)
 
 class MyNamespace(Namespace):
     def on_connect(self):

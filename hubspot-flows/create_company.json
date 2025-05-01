@@ -1,0 +1,273 @@
+{
+    "workflow_id": "create_new_company",
+    "title": "Create a New Company in HubSpot CRM",
+    "description": "This workflow navigates to the Companies section in HubSpot CRM and creates a new company record with domain, name, industry, and other business information.",
+    "steps": [
+      {
+        "step_id": "open_companies",
+        "description": "Open the Companies section",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "companies",
+          "element_type": "link"
+        }
+      },
+      {
+        "step_id": "create_new_company",
+        "description": "Click the Create Company button",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "new-object-button",
+          "element_type": "button"
+        }
+      },
+      {
+        "step_id": "enter_domain",
+        "description": "Enter company domain",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "domain-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "apli.ai"
+      },
+      {
+        "step_id": "click_name_field",
+        "description": "Click the company name field",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "name-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "enter_name",
+        "description": "Enter company name",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "name-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "Apli"
+      },
+      {
+        "step_id": "click_industry_field",
+        "description": "Click the industry field",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "industry-input",
+          "element_type": "select",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "select_industry",
+        "description": "Select Airlines/Aviation as the industry",
+        "action": "click",
+        "element": {
+          "identifier": "role",
+          "value": "button",
+          "element_type": "button",
+          "text": "Airlines/Aviation",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "click_type_field",
+        "description": "Click the company type field",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "type-input",
+          "element_type": "select",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "select_type",
+        "description": "Select Prospect as the company type",
+        "action": "click",
+        "element": {
+          "identifier": "role",
+          "value": "button",
+          "element_type": "button",
+          "text": "Prospect",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "click_city_field",
+        "description": "Click the city field",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "city-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "enter_city",
+        "description": "Enter city name",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "city-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "bangalore"
+      },
+      {
+        "step_id": "click_state_field",
+        "description": "Click the state field",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "state-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "enter_state",
+        "description": "Enter state name",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "state-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "Karnataka"
+      },
+      {
+        "step_id": "click_zip_field",
+        "description": "Click the zip code field",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "zip-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "enter_zip",
+        "description": "Enter zip code",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "zip-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "460402"
+      },
+      {
+        "step_id": "click_employees_field",
+        "description": "Click the number of employees field",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "numberofemployees-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "enter_employees",
+        "description": "Enter number of employees",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "numberofemployees-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "5"
+      },
+      {
+        "step_id": "click_revenue_field",
+        "description": "Click the annual revenue field",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "annualrevenue-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "enter_revenue",
+        "description": "Enter annual revenue",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "annualrevenue-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "55555"
+      },
+      {
+        "step_id": "click_timezone_field",
+        "description": "Click the timezone field",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "timezone-input",
+          "element_type": "select",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "save_company",
+        "description": "Save the new company",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "create-button",
+          "element_type": "button",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "view_company_record",
+        "description": "View the company record page",
+        "action": "navigate",
+        "element": {
+          "identifier": "url",
+          "value": "https://app-na2.hubspot.com/contacts/242423627/record/0-2/69659310782",
+          "element_type": "page"
+        }
+      },
+      {
+        "step_id": "return_to_companies",
+        "description": "Return to Companies list",
+        "action": "click",
+        "element": {
+          "identifier": "role",
+          "value": "link",
+          "element_type": "link",
+          "text": "Back to Companies"
+        }
+      }
+    ],
+    "metadata": {
+      "application": "HubSpot",
+      "module": "CRM",
+      "feature": "Company Management",
+      "estimated_duration_seconds": 90,
+      "prerequisites": ["User must be logged into HubSpot"]
+    }
+  }

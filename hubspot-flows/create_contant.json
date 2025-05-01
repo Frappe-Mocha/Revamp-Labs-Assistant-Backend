@@ -1,0 +1,195 @@
+{
+    "workflow_id": "create_new_contact",
+    "title": "Create a New Contact in HubSpot CRM",
+    "description": "This workflow navigates to the Contacts section in HubSpot CRM and creates a new contact with personal and professional information.",
+    "steps": [
+      {
+        "step_id": "navigate_to_crm",
+        "description": "Navigate to the CRM section",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "crm-toggle",
+          "element_type": "button"
+        }
+      },
+      {
+        "step_id": "open_contacts",
+        "description": "Open the Contacts section",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "contacts",
+          "element_type": "link"
+        }
+      },
+      {
+        "step_id": "create_new_contact",
+        "description": "Click the Create Contact button",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "new-object-button",
+          "element_type": "button"
+        }
+      },
+      {
+        "step_id": "enter_email",
+        "description": "Enter email address",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "email-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "test@gmail.com"
+      },
+      {
+        "step_id": "enter_firstname",
+        "description": "Enter first name",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "firstname-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "Test"
+      },
+      {
+        "step_id": "enter_lastname",
+        "description": "Enter last name",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "lastname-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "Test"
+      },
+      {
+        "step_id": "enter_job_title",
+        "description": "Enter job title",
+        "action": "fill",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "jobtitle-input",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "Test"
+      },
+      {
+        "step_id": "open_phone_dialog",
+        "description": "Open the phone number input dialog",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "property-input-phone-button",
+          "element_type": "button",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "open_country_selector",
+        "description": "Open the country selector",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "country-select",
+          "element_type": "select",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "select_india",
+        "description": "Select India as the country",
+        "action": "click",
+        "element": {
+          "identifier": "role",
+          "value": "button",
+          "element_type": "button",
+          "text": "🇮🇳 India +",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "enter_phone",
+        "description": "Enter phone number",
+        "action": "fill",
+        "element": {
+          "identifier": "type",
+          "value": "tel",
+          "element_type": "input",
+          "in_iframe": "object-builder-ui-iframe"
+        },
+        "input_value": "+91 88997-76655"
+      },
+      {
+        "step_id": "apply_phone",
+        "description": "Apply phone number changes",
+        "action": "click",
+        "element": {
+          "identifier": "role",
+          "value": "button",
+          "element_type": "button",
+          "text": "Apply",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "open_lead_status",
+        "description": "Open lead status selector",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "hs_lead_status-input",
+          "element_type": "select",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "select_new_status",
+        "description": "Select 'New' status",
+        "action": "click",
+        "element": {
+          "identifier": "role",
+          "value": "button",
+          "element_type": "button",
+          "text": "New",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "save_contact",
+        "description": "Save the new contact",
+        "action": "click",
+        "element": {
+          "identifier": "data-test-id",
+          "value": "create-button",
+          "element_type": "button",
+          "in_iframe": "object-builder-ui-iframe"
+        }
+      },
+      {
+        "step_id": "return_to_contacts",
+        "description": "Return to Contacts list",
+        "action": "click",
+        "element": {
+          "identifier": "role",
+          "value": "link",
+          "element_type": "link",
+          "text": "Back to Contacts"
+        }
+      }
+    ],
+    "metadata": {
+      "application": "HubSpot",
+      "module": "CRM",
+      "feature": "Contact Management",
+      "estimated_duration_seconds": 60,
+      "prerequisites": ["User must be logged into HubSpot"]
+    }
+  }
